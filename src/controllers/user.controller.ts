@@ -7,9 +7,14 @@ import {
   createUserSchema,
   userIdParamSchema,
 } from "../validators/user.validator";
+import { AuthService } from "../services/auth.service";
 
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+
+    private readonly authService: AuthService,
+  ) {}
 
   create = async (req: Request, res: Response): Promise<void> => {
     const payload = createUserSchema.parse(req.body);

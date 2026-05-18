@@ -1,7 +1,5 @@
 import type { Knex } from "knex";
-
-const USERS_TABLE = "users";
-const AUDIT_LOGS_TABLE = "audit_logs";
+import { AUDIT_LOGS_TABLE, USERS_TABLE } from "../../src/const/tables";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(USERS_TABLE, (table) => {
@@ -9,11 +7,19 @@ export async function up(knex: Knex): Promise<void> {
     table.string("first_name", 100).notNullable();
     table.string("last_name", 100).notNullable();
     table.string("email", 255).notNullable().unique();
+    table.datetime("last_activity_at").nullable();
     table.timestamps(true, true);
   });
 
   await knex.schema.createTable(AUDIT_LOGS_TABLE, (table) => {
     table.bigIncrements("id").primary();
+    table
+      .bigInteger("user_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable(USERS_TABLE)
+      .onDelete("CASCADE");
     table.string("action", 120).notNullable();
     table.bigInteger("entity_id").notNullable();
     table.string("entity_type", 120).notNullable();

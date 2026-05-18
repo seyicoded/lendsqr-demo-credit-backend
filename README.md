@@ -50,7 +50,13 @@ tests/
 - `npm run knex:rollback` rolls back the last migration batch.
 - `npm run knex:seed` runs seed files.
 
-## API Endpoints
+## E - R Diagram
+
+![ERDIAGRAM](./DemoCredit.drawio.png)
+
+## API Documentation
+
+https://documenter.getpostman.com/view/19608010/2sBXqRjcjy
 
 - `GET /api/health`
 - `GET /api/v1/users`
