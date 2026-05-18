@@ -1,11 +1,6 @@
 import type { Knex } from "knex";
 
-export interface CreateAuditLogData {
-  action: string;
-  entityId: number;
-  entityType: string;
-  metadata?: Record<string, unknown>;
-}
+import type { CreateAuditLogData } from "../../models/audit.model";
 
 export class AuditLogRepository {
   constructor(private readonly database: Knex) {}
@@ -17,6 +12,7 @@ export class AuditLogRepository {
     const executor = trx ?? this.database;
 
     await executor("audit_logs").insert({
+      user_id: data.userId,
       action: data.action,
       entity_id: data.entityId,
       entity_type: data.entityType,

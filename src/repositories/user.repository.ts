@@ -15,6 +15,8 @@ export class UserRepository {
       first_name: data.firstName,
       last_name: data.lastName,
       email: data.email,
+      password: data.password,
+      last_activity_at: new Date(),
     });
 
     const record = await executor<UserRecord>("users")
@@ -52,6 +54,32 @@ export class UserRepository {
       .orderBy("id", "desc");
 
     return records.map(toUser);
+  }
+
+  // update record
+  async update(
+    id: number,
+    data: Partial<CreateUserData>,
+    trx?: Knex.Transaction,
+  ): Promise<User> {
+    const executor = this.resolveExecutor(trx);
+
+    await executor<UserRecord>("users").where({ id }).update({
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      password: data.password,
+      last_activity_at: new Date(),
+      updated_at: new Date(),
+    });
+
+    const record = await executor<UserRecord>("users").where({ id }).first();
+
+    if (!record) {
+      throw new Error("Failed to load updated user");
+    }
+
+    return toUser(record);
   }
 
   private resolveExecutor(trx?: Knex.Transaction): Queryable {

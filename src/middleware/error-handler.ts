@@ -25,7 +25,9 @@ export const errorHandler = (
     return;
   }
 
+  console.error("Unexpected error:", error);
+
   res
     .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .json(errorResponse("Internal server error"));
+    .json(errorResponse("Internal server error", error.message));
 };
