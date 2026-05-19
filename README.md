@@ -321,6 +321,10 @@ All multi-step operations (user creation, transfers) use database transactions t
 
 https://documenter.getpostman.com/view/19608010/2sBXqRjcjy
 
+## Video Demo
+
+[Watch the demo](https://www.loom.com/share/4d6d3accf890494894b0195d77530f3a)
+
 ## PAYSTACK WEBHOOK FORMAT
 
 https://s3b00ckq-8000.usw3.devtunnels.ms/api/v1/webhooks/paystack-webhook
