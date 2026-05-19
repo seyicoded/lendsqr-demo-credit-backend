@@ -15,6 +15,7 @@ export class UserRepository {
       first_name: data.firstName,
       last_name: data.lastName,
       email: data.email,
+      bvn: data.bvn,
       username: data.username,
       password: data.password,
       last_activity_at: new Date(),

@@ -2,6 +2,7 @@ export interface User {
   id: number;
   firstName: string;
   lastName: string;
+  bvn: number;
   email: string;
   username: string;
   password: string;
@@ -14,6 +15,7 @@ export interface User {
 export interface CreateUserData {
   firstName: string;
   lastName: string;
+  bvn: number;
   email: string;
   username: string;
   password: string;
@@ -23,6 +25,7 @@ export interface UserRecord {
   id: number;
   first_name: string;
   last_name: string;
+  bvn: number;
   email: string;
   username: string;
   password: string;
@@ -36,6 +39,7 @@ export const toUser = (record: UserRecord): User => ({
   id: record.id,
   firstName: record.first_name,
   lastName: record.last_name,
+  bvn: record.bvn,
   email: record.email,
   username: record.username,
   password: record.password,

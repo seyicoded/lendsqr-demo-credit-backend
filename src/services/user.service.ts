@@ -9,6 +9,7 @@ import { AuthService } from "./auth.service";
 import { AUDIT_ACTIONS } from "../types/audit.types";
 import { WalletRepository } from "../repositories/wallet.repository";
 import { env } from "../config/env";
+import { validateBlacklist } from "../network/external-api";
 
 export class UserService {
   constructor(
@@ -38,6 +39,14 @@ export class UserService {
 
     // check password strength, email format, if user is blacklisted from external service
     await this.authService.validateNewUser(data);
+
+    // check if blacklisted from external service, if so throw error
+    const isBlacklisted = await validateBlacklist(data.bvn);
+    if (isBlacklisted) {
+      throw new AppError("User is blacklisted", StatusCodes.FORBIDDEN, {
+        bvn: data.bvn,
+      });
+    }
 
     const password = await this.authService.hashPassword(data.password);
 
@@ -75,7 +84,7 @@ export class UserService {
   }
 
   async loginUser(
-    data: Omit<CreateUserData, "firstName" | "lastName" | "username">,
+    data: Omit<CreateUserData, "firstName" | "lastName" | "username" | "bvn">,
   ): Promise<User> {
     const user = await this.userRepository.findByEmail(data.email);
 

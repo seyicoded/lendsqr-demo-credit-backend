@@ -11,6 +11,19 @@ export interface FundWalletViaCardData {
   reason: string;
 }
 
+export interface TransferToInternalWalletData {
+  amount: number;
+  recipient_username: string;
+  reason: string;
+}
+
+export interface TransferToExternalWalletData {
+  amount: number;
+  bank_code: string;
+  account_number: string;
+  reason: string;
+}
+
 export interface CreateWalletData {
   userId: number;
   availableBalance: number;

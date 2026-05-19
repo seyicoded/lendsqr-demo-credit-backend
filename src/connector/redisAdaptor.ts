@@ -14,6 +14,9 @@ const client = createClient({
 
 export const init = async () => {
   try {
+    if (!client.isOpen) {
+      await client.connect();
+    }
     client.on("connect", () => console.log("Normal client connected ✅"));
   } catch (error) {
     console.error("Redis connection error:", error);

@@ -4,9 +4,13 @@ import morgan from "morgan";
 import { errorHandler } from "./middleware/error-handler";
 import { notFoundHandler } from "./middleware/not-found";
 import { createApiRouter } from "./routes";
+import { init } from "./connector/redisAdaptor";
 
 export const createApp = (): Express => {
   const app = express();
+
+  // init redis connection
+  init();
 
   app.use(cors());
   app.use(express.json());

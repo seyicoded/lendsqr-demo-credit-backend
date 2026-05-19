@@ -24,6 +24,10 @@ const envSchema = z.object({
   REDIS_HOST: z.string().min(1),
   REDIS_PORT: z.coerce.number().int().positive().default(6379),
   REDIS_PASSWORD: z.string().optional(),
+
+  LENDSQR_BASE_URL: z.string().min(1),
+  LENDSQR_APP_ID: z.string().min(1),
+  LENDSQR_SECRET_KEY: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);

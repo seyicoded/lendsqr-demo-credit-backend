@@ -9,7 +9,19 @@ export const createWalletRouter = (
   const router = Router();
 
   router.get("/overview", asyncHandler(walletController.overview));
+  router.get("/transfer/bank-list", asyncHandler(walletController.bankList));
+
   router.post("/funds/cards", asyncHandler(walletController.fundWalletViaCard));
+
+  router.post(
+    "/transfer/internal",
+    asyncHandler(walletController.transferToInternalWallet),
+  );
+
+  router.post(
+    "/transfer/external",
+    asyncHandler(walletController.transferToExternalWallet),
+  );
 
   return router;
 };
