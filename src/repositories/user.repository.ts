@@ -15,6 +15,7 @@ export class UserRepository {
       first_name: data.firstName,
       last_name: data.lastName,
       email: data.email,
+      username: data.username,
       password: data.password,
       last_activity_at: new Date(),
     });
@@ -36,6 +37,42 @@ export class UserRepository {
   ): Promise<User | null> {
     const executor = this.resolveExecutor(trx);
     const record = await executor<UserRecord>("users").where({ email }).first();
+
+    return record ? toUser(record) : null;
+  }
+
+  async findByUsername(
+    username: string,
+    trx?: Knex.Transaction,
+  ): Promise<User | null> {
+    const executor = this.resolveExecutor(trx);
+    const record = await executor<UserRecord>("users")
+      .where({ username })
+      .first();
+
+    return record ? toUser(record) : null;
+  }
+
+  async find(
+    where: Partial<CreateUserData>,
+    trx?: Knex.Transaction,
+  ): Promise<User | null> {
+    const executor = this.resolveExecutor(trx);
+    const record = await executor<UserRecord>("users").where(where).first();
+
+    return record ? toUser(record) : null;
+  }
+
+  async findByEmailOrUsername(
+    email: string,
+    username: string,
+    trx?: Knex.Transaction,
+  ): Promise<User | null> {
+    const executor = this.resolveExecutor(trx);
+    const record = await executor<UserRecord>("users")
+      .where({ email })
+      .orWhere({ username })
+      .first();
 
     return record ? toUser(record) : null;
   }
@@ -67,7 +104,6 @@ export class UserRepository {
     await executor<UserRecord>("users").where({ id }).update({
       first_name: data.firstName,
       last_name: data.lastName,
-      email: data.email,
       password: data.password,
       last_activity_at: new Date(),
       updated_at: new Date(),

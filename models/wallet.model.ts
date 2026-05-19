@@ -6,6 +6,11 @@ export interface Wallet {
   updatedAt: Date;
 }
 
+export interface FundWalletViaCardData {
+  amount: number;
+  reason: string;
+}
+
 export interface CreateWalletData {
   userId: number;
   availableBalance: number;

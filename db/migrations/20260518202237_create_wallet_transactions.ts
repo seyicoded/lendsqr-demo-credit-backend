@@ -31,9 +31,14 @@ export async function up(knex: Knex): Promise<void> {
       .inTable(WALLETS_TABLE)
       .onDelete("CASCADE");
     table.double("amount").notNullable();
-    table.boolean("status").defaultTo(false).notNullable();
+    table
+      .enum("status", ["failed", "processing", "completed", "reversed"])
+      .defaultTo("processing")
+      .notNullable();
+    table.string("reason").nullable();
+    table.string("reference").nullable();
     table.enum("type", ["deposit", "withdrawal"]).notNullable();
-    table.enum("via", ["wallet", "direct_bank"]).notNullable();
+    table.enum("via", ["wallet", "direct_bank", "card"]).notNullable();
     table.jsonb("sender_info").comment(info).notNullable();
     table.jsonb("reciever_info").comment(info).notNullable();
     table.timestamps(true, true);

@@ -15,6 +15,11 @@ const envSchema = z.object({
   INITIAL_WALLET_BALANCE: z.coerce.number().int().nonnegative().default(10000),
   JWT_SECRET: z.string().min(1).default("your_jwt_secret_key"),
   JWT_EXPIRY: z.string().min(1).default("1h"),
+
+  PAYSTACK_SECRET_KEY: z.string().min(1),
+  PAYSTACK_PUBLIC_KEY: z.string().min(1),
+  PAYSTACK_BASE_URL: z.string().min(1),
+  PAYSTACK_SUCCESS_URL: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);

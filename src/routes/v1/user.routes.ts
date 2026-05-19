@@ -10,11 +10,5 @@ export const createUserRouter = (userController: UserController): Router => {
   router.post("/register", asyncHandler(userController.registerUser));
   router.post("/login", asyncHandler(userController.loginUser));
 
-  // router.get("/", asyncHandler(userController.list));
-  // router.get("/:id", asyncHandler(userController.getById));
-  // router.post("/", asyncHandler(userController.create));
-
-  // guarded route
-
   return router;
 };

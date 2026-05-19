@@ -3,8 +3,10 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
+  username: string;
   password: string;
   lastActivityAt?: Date | null;
+  maxLoanThreshold?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -13,6 +15,7 @@ export interface CreateUserData {
   firstName: string;
   lastName: string;
   email: string;
+  username: string;
   password: string;
 }
 
@@ -21,7 +24,9 @@ export interface UserRecord {
   first_name: string;
   last_name: string;
   email: string;
+  username: string;
   password: string;
+  max_loan_threshold?: number | null;
   last_activity_at?: Date | null;
   created_at: Date;
   updated_at: Date;
@@ -32,10 +37,12 @@ export const toUser = (record: UserRecord): User => ({
   firstName: record.first_name,
   lastName: record.last_name,
   email: record.email,
+  username: record.username,
   password: record.password,
   createdAt: new Date(record.created_at),
   updatedAt: new Date(record.updated_at),
   lastActivityAt: record.last_activity_at
     ? new Date(record.last_activity_at)
     : null,
+  maxLoanThreshold: record.max_loan_threshold ?? undefined,
 });

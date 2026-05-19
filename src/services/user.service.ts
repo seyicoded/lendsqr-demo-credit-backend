@@ -20,14 +20,18 @@ export class UserService {
   ) {}
 
   async createUser(data: CreateUserData): Promise<User> {
-    const existingUser = await this.userRepository.findByEmail(data.email);
+    const existingUser = await this.userRepository.findByEmailOrUsername(
+      data?.email,
+      data?.username,
+    );
 
     if (existingUser) {
       throw new AppError(
-        "User with this email already exists",
+        "User with this email or username already exists",
         StatusCodes.CONFLICT,
         {
           email: data.email,
+          username: data.username,
         },
       );
     }
@@ -71,7 +75,7 @@ export class UserService {
   }
 
   async loginUser(
-    data: Omit<CreateUserData, "firstName" | "lastName">,
+    data: Omit<CreateUserData, "firstName" | "lastName" | "username">,
   ): Promise<User> {
     const user = await this.userRepository.findByEmail(data.email);
 

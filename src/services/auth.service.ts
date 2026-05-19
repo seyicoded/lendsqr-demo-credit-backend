@@ -37,4 +37,12 @@ export class AuthService {
       expiresIn: env.JWT_EXPIRY as string,
     });
   }
+
+  verifyToken(token: string): any {
+    try {
+      return jwt.verify(token, env.JWT_SECRET as string);
+    } catch (error) {
+      throw new Error("Invalid or expired token");
+    }
+  }
 }
