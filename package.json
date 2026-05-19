@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/server.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
     "knex:make": "node -r ts-node/register ./node_modules/knex/bin/cli.js migrate:make --knexfile knexfile.ts",
