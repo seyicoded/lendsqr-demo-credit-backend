@@ -24,9 +24,9 @@ export class WalletService {
   ): Promise<
     { authorization_url: string; reference: string } | undefined | null
   > => {
-    data.amount = data.amount * 100; // convert to kobo
+    // data.amount = data.amount * 100; // convert to kobo
     const { authorization_url, reference } = await createPaystackPayment({
-      amount: data.amount,
+      amount: data.amount * 100,
       email: user?.email || "",
       callbackUrl: env.PAYSTACK_SUCCESS_URL,
     });

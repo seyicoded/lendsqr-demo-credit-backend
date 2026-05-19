@@ -58,6 +58,10 @@ tests/
 
 https://documenter.getpostman.com/view/19608010/2sBXqRjcjy
 
+## PAYSTACK WEBHOOOK FORMAT
+
+https://s3b00ckq-8000.usw3.devtunnels.ms/api/v1/webhooks/paystack-webhook
+
 - `GET /api/health`
 - `GET /api/v1/users`
 - `GET /api/v1/users/:id`
