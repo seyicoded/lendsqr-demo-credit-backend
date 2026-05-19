@@ -20,6 +20,10 @@ const envSchema = z.object({
   PAYSTACK_PUBLIC_KEY: z.string().min(1),
   PAYSTACK_BASE_URL: z.string().min(1),
   PAYSTACK_SUCCESS_URL: z.string().min(1),
+
+  REDIS_HOST: z.string().min(1),
+  REDIS_PORT: z.coerce.number().int().positive().default(6379),
+  REDIS_PASSWORD: z.string().optional(),
 });
 
 export const env = envSchema.parse(process.env);
