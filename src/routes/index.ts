@@ -11,6 +11,9 @@ export const createApiRouter = (): Router => {
   const { userController, walletController, webhookController, appGuard } =
     buildContainer();
 
+  router.get("/", (_req, res) => {
+    res.json({ status: "success", message: "Service is healthy" });
+  });
   router.get("/health", (_req, res) => {
     res.json({ status: "success", message: "Service is healthy" });
   });
