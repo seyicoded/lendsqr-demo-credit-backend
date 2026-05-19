@@ -36,30 +36,4 @@ export class UserController {
         successResponse("User logged in successfully", userWithoutPassword),
       );
   };
-
-  // create = async (req: Request, res: Response): Promise<void> => {
-  //   const payload = createUserSchema.parse(req.body);
-  //   const user = await this.userService.createUser(payload);
-
-  //   res
-  //     .status(StatusCodes.CREATED)
-  //     .json(successResponse("User created successfully", user));
-  // };
-
-  // getById = async (req: Request, res: Response): Promise<void> => {
-  //   const params = userIdParamSchema.parse(req.params);
-  //   const user = await this.userService.getUserById(params.id);
-
-  //   res
-  //     .status(StatusCodes.OK)
-  //     .json(successResponse("User retrieved successfully", user));
-  // };
-
-  // list = async (_req: Request, res: Response): Promise<void> => {
-  //   const users = await this.userService.listUsers();
-
-  //   res
-  //     .status(StatusCodes.OK)
-  //     .json(successResponse("Users retrieved successfully", users));
-  // };
 }

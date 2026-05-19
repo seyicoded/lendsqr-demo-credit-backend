@@ -3,7 +3,7 @@ import { USERS_TABLE } from "../../src/const/tables";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.alterTable(USERS_TABLE, (table) => {
-    table.integer("bvn", 20).notNullable();
+    table.bigInteger("bvn").notNullable();
   });
 }
 
