@@ -8,7 +8,7 @@ export const createWalletRouter = (
 ): Router => {
   const router = Router();
 
-  // guest
+  router.get("/overview", asyncHandler(walletController.overview));
   router.post("/funds/cards", asyncHandler(walletController.fundWalletViaCard));
 
   return router;

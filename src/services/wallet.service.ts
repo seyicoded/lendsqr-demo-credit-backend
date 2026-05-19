@@ -74,4 +74,16 @@ export class WalletService {
 
     return { authorization_url, reference };
   };
+
+  getWalletOverview = async (user?: User) => {
+    const wallet = await this.walletRepository.findByUserId(user?.id || -1);
+    const transactions = await this.walletTransactionRepository.findByWalletId(
+      wallet?.id || -1,
+    );
+
+    return {
+      wallet,
+      transactions,
+    };
+  };
 }
