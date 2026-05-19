@@ -68,6 +68,16 @@ export class WalletTransactionRepository {
     return record ? toWalletTransaction(record) : null;
   }
 
+  async findByReference(
+    reference: string,
+    trx?: Knex.Transaction,
+  ): Promise<WalletTransaction | null> {
+    const executor = this.resolveExecutor(trx);
+    const record = await this.baseSelect(executor).where({ reference }).first();
+
+    return record ? toWalletTransaction(record) : null;
+  }
+
   async findByUserId(
     userId: number,
     trx?: Knex.Transaction,
@@ -162,5 +172,19 @@ export class WalletTransactionRepository {
 
   private resolveExecutor(trx?: Knex.Transaction): Queryable {
     return trx ?? this.database;
+  }
+
+  public async updateStatus(
+    id: number,
+    status: WalletTransaction["status"],
+    trx?: Knex.Transaction,
+  ): Promise<WalletTransaction> {
+    return this.update(
+      id,
+      {
+        status,
+      },
+      trx,
+    );
   }
 }

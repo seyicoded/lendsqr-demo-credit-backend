@@ -14,6 +14,7 @@ export class AuditLogRepository {
     await executor("audit_logs").insert({
       user_id: data.userId,
       action: data.action,
+      details: data.details,
       entity_id: data.entityId,
       entity_type: data.entityType,
       metadata: data.metadata ? JSON.stringify(data.metadata) : null,

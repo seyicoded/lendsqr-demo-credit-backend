@@ -96,4 +96,26 @@ export class WalletRepository {
   private resolveExecutor(trx?: Knex.Transaction): Queryable {
     return trx ?? this.database;
   }
+
+  public async incrementBalance(
+    id: number,
+    amount: number,
+    trx?: Knex.Transaction,
+  ): Promise<Wallet> {
+    const executor = this.resolveExecutor(trx);
+
+    await executor<WalletRecord>(WALLETS_TABLE)
+      .where({ id })
+      .increment("available_balance", amount);
+
+    const record = await executor<WalletRecord>(WALLETS_TABLE)
+      .where({ id })
+      .first();
+
+    if (!record) {
+      throw new Error("Failed to load updated wallet");
+    }
+
+    return toWallet(record);
+  }
 }

@@ -9,12 +9,15 @@ import { UserService } from "./services/user.service";
 import { WalletService } from "./services/wallet.service";
 import { createAppGuard } from "./middleware/guard.middleware";
 import { WalletTransactionRepository } from "./repositories/wallet-transaction.repository";
+import { WebhookService } from "./services/webhook.service";
+import { WebhookController } from "./controllers/webhook.controller";
 
 export const buildContainer = () => {
   const userRepository = new UserRepository(db);
   const auditLogRepository = new AuditLogRepository(db);
   const walletRepository = new WalletRepository(db);
   const walletTransactionRepository = new WalletTransactionRepository(db);
+
   const authService = new AuthService();
 
   const userService = new UserService(
@@ -33,13 +36,23 @@ export const buildContainer = () => {
     walletTransactionRepository,
     db,
   );
-
   const walletController = new WalletController(walletService);
+
+  const webhookService = new WebhookService(
+    userRepository,
+    auditLogRepository,
+    walletRepository,
+    walletTransactionRepository,
+    db,
+  );
+  const webhookController = new WebhookController(webhookService);
+
   const appGuard = createAppGuard(userRepository);
 
   return {
     userController,
     walletController,
+    webhookController,
     appGuard,
   };
 };

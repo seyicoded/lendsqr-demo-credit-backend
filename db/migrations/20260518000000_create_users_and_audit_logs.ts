@@ -22,6 +22,7 @@ export async function up(knex: Knex): Promise<void> {
       .inTable(USERS_TABLE)
       .onDelete("CASCADE");
     table.string("action", 120).notNullable();
+    table.string("details", 120).nullable();
     table.bigInteger("entity_id").notNullable();
     table.string("entity_type", 120).notNullable();
     table.json("metadata").nullable();
